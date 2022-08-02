@@ -20,13 +20,13 @@ mongoose.connect(process.env.DB_CONNECT,
     { useNewUrlParser: true },
     () => console.log("connected to db!"));
 
-app.set('views', path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, './views')));
-app.set('view engine', 'html');
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, './public')));
+app.set('view engine', 'pug');
 
 
 app.get('/index', (req, res) => {
-    res.render('index.html', { title: 'Home' })
+    res.render('index', { title: 'Home' })
 })
 
 app.get('/home', (req, res) => {
@@ -48,7 +48,6 @@ app.listen(3000, () => {
 app.use(express.json())
 
 
-
 app.post('/register', async (req, res) => {
     const user = new User ({
         name: req.body.name,
@@ -61,5 +60,4 @@ app.post('/register', async (req, res) => {
         res.send(savedUser)
     } catch(err) { res.status(400).semd(err) }
 })
-
 
