@@ -1,14 +1,15 @@
-body
-    form(action='/add_movie' method='POST')
+extends layout
+
+block layout-content
+    div.View
+        form(id='loginform' action='userlogin' method='POST')
             p
-        | title: 
-        input(type='text' name='title' value='')
-    br
-    br
-    |          year: 
-    input(type='text' name='year' value='')
-    br
-    br
-    |          imdb: 
-    input(type='text' name='imdb' value='')
-    input(type='submit' value='Submit')
+            | Username: 
+            input(type='text' name='username' value='')
+            br
+            br
+            | Password: 
+            input(type='text' name='password' value='')
+            br
+            br
+            input(type='submit' value='Login')
