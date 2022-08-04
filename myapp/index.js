@@ -4,6 +4,8 @@ const path = require('path')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const User = require('../myapp/models/User')
+const multer = require('multer');
+const upload = multer();
 
 // Configures/grabs passwords/links/DB connection from .env
 dotenv.config()
@@ -23,7 +25,6 @@ mongoose.connect(process.env.DB_CONNECT,
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, './public')));
 app.set('view engine', 'pug');
-
 
 app.get('/index', (req, res) => {
     res.render('index', { title: 'Home' })
@@ -49,8 +50,12 @@ app.listen(3000, () => {
     console.log('http://localhost:3000')
 })
 
-app.use(express.json())
+//app.use(express.json())
 
+// app.use(express.json({  extended: true }));
+
+// enables parsing using the qs library
+app.use(express.urlencoded({  extended: true }));
 
 app.post('/register', async (req, res) => {
     const user = new User ({
@@ -59,9 +64,24 @@ app.post('/register', async (req, res) => {
         password: req.body.password
     })
 
+    console.log(req.body.name);
+    console.log(req.body.email);
+    console.log(req.body.password);
+
+/*
     try {
         const savedUser = await user.save()
         res.send(savedUser)
     } catch(err) { res.status(400).semd(err) }
+    */
+
+    res.send(req.body);
+
+})
+
+app.post('/userlogin', upload.none(), async (req, res) => {
+    console.log("username: ", req.body.username);
+    console.log("password: ", req.body.password);
+    res.render('home', { 'username': req.body.username });
 })
 
