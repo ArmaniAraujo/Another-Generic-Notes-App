@@ -4,8 +4,6 @@ const path = require('path')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const User = require('../myapp/models/User')
-const multer = require('multer');
-const upload = multer();
 
 // Configures/grabs passwords/links/DB connection from .env
 dotenv.config()
@@ -79,7 +77,7 @@ app.post('/register', async (req, res) => {
 
 })
 
-app.post('/userlogin', upload.none(), async (req, res) => {
+app.post('/userlogin', async (req, res) => {
     console.log("username: ", req.body.username);
     console.log("password: ", req.body.password);
     res.render('home', { 'username': req.body.username });
