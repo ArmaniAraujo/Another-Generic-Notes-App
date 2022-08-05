@@ -3,7 +3,7 @@ const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-const User = require('../myapp/models/User')
+const User = require('./models/User')
 
 // Configures/grabs passwords/links/DB connection from .env
 dotenv.config()
